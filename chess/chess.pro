@@ -8,14 +8,12 @@ SOURCES += \
         main.cpp \
         piece.cpp \
         pieces/pion.cpp \
-        player.cpp \
-        vector2.cpp
+        player.cpp
 
 HEADERS += \
     enum.h \
     game.h \
     piece.h \
     pieces/pion.h \
-    player.h \
-    vector2.h
+    player.h
 
