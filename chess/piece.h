@@ -8,17 +8,19 @@ class Piece
 {
 public:
     //Piece() = delete;
-    Piece(TypePiece type, int x, int y, Color color);
+    //Piece(TypePiece type, int l, int c, Color color);
+
+    Piece(int l, int c, Color color);
 
     virtual ~Piece();
     virtual void Mouvement(int x, int y) = 0;
 
 
-private:
+protected:
     //Vector2 _position;
 
     //vector position();
-    int _x, _y;
+    int _l, _c;
 
     Color _color;
     StatuPiece _statu;

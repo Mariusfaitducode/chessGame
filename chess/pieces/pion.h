@@ -9,7 +9,7 @@
 class Pion : public Piece
 {
 public:
-    Pion(TypePiece type, int x, int y, Color color);
+    Pion(int l, int c, Color color);
     ~Pion();
     void Mouvement(int x, int y) override;
 };

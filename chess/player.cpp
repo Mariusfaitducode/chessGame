@@ -2,7 +2,52 @@
 
 Player::Player()
 {
-    _pieces.push_back(new Pion(TypePiece::pion, 1, 1, Color::blanc));
+    std::cout << "Constructeur par defaut" << std::endl;
+    _pieces.push_back(new Pion(1, 1, Color::blanc));
+}
+
+Player::Player(Color color)
+{
+    if(color == Color::blanc){
+        std::cout << "Constructeur blanc" << std::endl;
+
+        for (int i = 0; i < 8; i++){
+            _pieces.push_back(new Pion(1, i, color));
+        }
+        _pieces.push_back(new Tour(0, 0, color));
+        _pieces.push_back(new Tour(0, 7, color));
+
+        _pieces.push_back(new Cavalier(0, 1, color));
+        _pieces.push_back(new Cavalier(0, 6, color));
+
+        _pieces.push_back(new Fou(0, 2, color));
+        _pieces.push_back(new Fou(0, 5, color));
+
+        _pieces.push_back(new Dame(0, 3, color));
+        _pieces.push_back(new Roi(0, 4, color));
+
+
+    }
+    else{
+        for (int i = 0; i < 8; i++){
+            _pieces.push_back(new Pion(6, i, color));
+        }
+        _pieces.push_back(new Tour(7, 0, color));
+        _pieces.push_back(new Tour(7, 7, color));
+
+        _pieces.push_back(new Cavalier(7, 1, color));
+        _pieces.push_back(new Cavalier(7, 6, color));
+
+        _pieces.push_back(new Fou(7, 2, color));
+        _pieces.push_back(new Fou(7, 5, color));
+
+        _pieces.push_back(new Dame(7, 3, color));
+        _pieces.push_back(new Roi(7, 4, color));
+
+
+    }
+
+    //_pieces.push_back(new Pion(TypePiece::pion, 1, 1, Color::blanc));
 }
 
 Player::~Player(){
@@ -14,3 +59,21 @@ Player::~Player(){
         delete piece;
     }
 }
+
+void Player::ShowPieces(){
+
+    for (auto piece : _pieces)
+    {
+        //std::cout << piece->Mouvement(1,1) << std::endl;
+        piece->Mouvement(1,1);
+    }
+}
+
+
+
+
+
+
+
+
+

@@ -1,14 +1,14 @@
 #include "pion.h"
 
-Pion::Pion(TypePiece type, int x, int y, Color color) : Piece(type, x, y, color)
+Pion::Pion(int l, int c, Color color) : Piece(l, c, color)
 {
-
+    _type = TypePiece::pion;
 }
 
 Pion::~Pion(){
 
 }
 
-void Pion:: Mouvement(int x, int y){
+void Pion:: Mouvement(int l, int c){
     std::cout << "Mouvement pion" << std::endl;
 }

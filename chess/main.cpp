@@ -11,8 +11,13 @@ int main()
 {
     cout << "Chess Game !" << endl;
 
-    Player p;
+    Player p(Color::blanc);
 
+    //Piece* piece = p.GetPiece(0);
+
+    //piece->Mouvement(1,1);
+
+    p.ShowPieces();
     //Piece pion = new Pion(TypePiece.pion, 1, 1, Color.white);
 
 
