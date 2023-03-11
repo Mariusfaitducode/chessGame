@@ -3,7 +3,8 @@ CONFIG += console c++17
 CONFIG -= app_bundle
 
 
-QT += core gui
+QT += core gui \
+      widgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
