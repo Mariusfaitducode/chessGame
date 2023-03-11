@@ -4,6 +4,8 @@
 #include <enum.h>
 #include <vector>
 
+#include <QGraphicsPixmapItem>
+
 class Piece
 {
 public:
@@ -11,6 +13,10 @@ public:
     //Piece(TypePiece type, int l, int c, Color color);
 
     Piece(int l, int c, Color color);
+
+    QPixmap GetImage(){return _image;}
+    int L(){return _l;}
+    int C(){return _c;}
 
     virtual ~Piece();
     virtual void Mouvement(int x, int y) = 0;
@@ -26,7 +32,7 @@ protected:
     StatuPiece _statu;
 
     TypePiece _type;
-    char _letter;
+    QPixmap _image;
 };
 
 #endif // PIECE_H

@@ -15,10 +15,10 @@ int main(int argc, char *argv[])
 {
     cout << "Chess Game !" << endl;
 
-    Game g;
+    //Game g;
 
 
-    g.blanc.ShowPieces();
+    //g.blanc.ShowPieces();
     //Player p(Color::blanc);
 
     //Piece* piece = p.GetPiece(0);

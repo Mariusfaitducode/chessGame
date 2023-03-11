@@ -25,6 +25,7 @@ public:
 
     Player & operator = (const Player &p);
 
+    std::vector<Piece*> GetPieces(){return _pieces;}
     Piece* GetPiece(int i){return _pieces[i];}
 
     void ShowPieces();
