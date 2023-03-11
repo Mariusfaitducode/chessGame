@@ -1,11 +1,16 @@
 TEMPLATE = app
 CONFIG += console c++17
 CONFIG -= app_bundle
-CONFIG -= qt
+
+
+QT += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 SOURCES += \
         game.cpp \
         main.cpp \
+        mainwindow.cpp \
         piece.cpp \
         pieces/cavalier.cpp \
         pieces/dame.cpp \
@@ -18,6 +23,7 @@ SOURCES += \
 HEADERS += \
     enum.h \
     game.h \
+    mainwindow.h \
     piece.h \
     pieces/cavalier.h \
     pieces/dame.h \
@@ -26,4 +32,7 @@ HEADERS += \
     pieces/roi.h \
     pieces/tour.h \
     player.h
+
+FORMS += \
+    mainwindow.ui
 

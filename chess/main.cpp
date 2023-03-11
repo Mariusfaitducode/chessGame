@@ -6,21 +6,33 @@ using namespace std;
 #include <pieces\pion.h>
 #include <player.h>
 #include <enum.h>
+#include <game.h>
 
-int main()
+#include <QApplication>
+#include <mainwindow.h>
+
+int main(int argc, char *argv[])
 {
     cout << "Chess Game !" << endl;
 
-    Player p(Color::blanc);
+    Game g;
+
+
+    g.blanc.ShowPieces();
+    //Player p(Color::blanc);
 
     //Piece* piece = p.GetPiece(0);
 
     //piece->Mouvement(1,1);
 
-    p.ShowPieces();
+    //p.ShowPieces();
     //Piece pion = new Pion(TypePiece.pion, 1, 1, Color.white);
 
+    QApplication a(argc, argv);
 
+    MainWindow w;
 
-    return 0;
+    w.show();
+
+    return a.exec();
 }

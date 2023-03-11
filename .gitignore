@@ -1,3 +1,9 @@
+#build problems
+
+*.idx
+*.json
+
+
 # Prerequisites
 *.d
 

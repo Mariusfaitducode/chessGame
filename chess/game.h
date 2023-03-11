@@ -10,7 +10,7 @@ public:
     Game();
 
 
-private:
+public:
     Player blanc;
     Player noir;
 

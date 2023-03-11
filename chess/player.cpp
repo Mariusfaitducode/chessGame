@@ -3,7 +3,7 @@
 Player::Player()
 {
     std::cout << "Constructeur par defaut" << std::endl;
-    _pieces.push_back(new Pion(1, 1, Color::blanc));
+    std::cout << "Pieces non initialisees" << std::endl;
 }
 
 Player::Player(Color color)
@@ -26,9 +26,10 @@ Player::Player(Color color)
         _pieces.push_back(new Dame(0, 3, color));
         _pieces.push_back(new Roi(0, 4, color));
 
-
     }
     else{
+        std::cout << "Constructeur noir" << std::endl;
+
         for (int i = 0; i < 8; i++){
             _pieces.push_back(new Pion(6, i, color));
         }
@@ -44,7 +45,6 @@ Player::Player(Color color)
         _pieces.push_back(new Dame(7, 3, color));
         _pieces.push_back(new Roi(7, 4, color));
 
-
     }
 
     //_pieces.push_back(new Pion(TypePiece::pion, 1, 1, Color::blanc));
@@ -59,6 +59,29 @@ Player::~Player(){
         delete piece;
     }
 }
+
+Player& Player:: operator = (const Player &p)
+{
+    if (this != &p){
+
+        for (auto piece : _pieces)
+        {
+            delete piece;
+        }
+
+        _color = p._color;
+
+        for (auto piece : p._pieces)
+        {
+            _pieces.push_back(piece);
+        }
+
+
+    }
+    return *this;
+}
+
+
 
 void Player::ShowPieces(){
 

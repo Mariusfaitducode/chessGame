@@ -23,6 +23,8 @@ public:
     Player(Color color);
     ~Player();
 
+    Player & operator = (const Player &p);
+
     Piece* GetPiece(int i){return _pieces[i];}
 
     void ShowPieces();
