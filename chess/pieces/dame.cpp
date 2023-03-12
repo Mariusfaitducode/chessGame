@@ -1,6 +1,6 @@
 #include "dame.h"
 
-Dame::Dame(int l, int c, Color color) : Piece(l, c, color)
+Dame::Dame(int l, int c, Color color) : Piece(Vector2(c, l), color)
 {
     _type = TypePiece::dame;
 
@@ -16,6 +16,10 @@ Dame::~Dame(){
 
 }
 
-void Dame:: Mouvement(int l, int c){
+std::vector<Vector2> Dame:: Mouvement(Piece *plateau[8][8]){
     std::cout << "Mouvement dame" << std::endl;
+
+    std::vector<Vector2> coups;
+
+    return coups;
 }

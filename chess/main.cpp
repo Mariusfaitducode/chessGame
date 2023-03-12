@@ -3,8 +3,6 @@
 using namespace std;
 
 #include <piece.h>
-#include <pieces\pion.h>
-#include <player.h>
 #include <enum.h>
 #include <game.h>
 

@@ -88,7 +88,7 @@ void Player::ShowPieces(){
     for (auto piece : _pieces)
     {
         //std::cout << piece->Mouvement(1,1) << std::endl;
-        piece->Mouvement(1,1);
+        piece->ShowPiece();
     }
 }
 

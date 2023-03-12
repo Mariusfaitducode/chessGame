@@ -23,6 +23,10 @@ public:
 
     Piece* GetPiece(int c, int l){return plateau[c][l];}
 
+    void FirstClickedPiece(Piece* piece);
+
+    //Piece *[8][8] GetPlateau(){return plateau;}
+
 private:
     Player blanc;
     Player noir;

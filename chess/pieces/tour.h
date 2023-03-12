@@ -12,7 +12,7 @@ class Tour : public Piece
 public:
     Tour(int l, int c, Color color);
     ~Tour();
-    void Mouvement(int x, int y) override;
+    std::vector<Vector2> Mouvement(Piece* plateau[8][8]) override;
 };
 
 

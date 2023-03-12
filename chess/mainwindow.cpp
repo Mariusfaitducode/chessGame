@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     game->InstallPieces(scene);
 
+
+
     //connect(scene, &ChessScene::sceneClicked, this, &MainWindow::onSceneClicked);
 
     connect(scene, &ChessScene::mousePressed, this, &MainWindow::onSceneClicked);
@@ -47,15 +49,22 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
     int c = event->scenePos().x() / SQUARE_SIZE;
     int l = event->scenePos().y() / SQUARE_SIZE;
 
-    std::cout << "X : " << c ;
-    std::cout << "Y : " << l ;
+    std::cout << "X : " << c << std::endl;
+    std::cout << "Y : " << l << std::endl;
 
-    game->GetPiece(c, l)->Mouvement(1,1);
+    Piece* clickedCase = game->GetPiece(c, l);
 
-    //game->blanc.ShowPieces();
 
-    // Afficher les coordonnées dans la console
-    //qDebug() << "Case cliquée : (" << x << ", " << y << ")";
+    if (clickedCase != NULL){ // Si il y'a bien une pièce
+
+        clickedCase->ShowPiece();
+
+        //std::vector<Vector2> coups = clickedCase->Mouvement()
+
+        game->FirstClickedPiece(clickedCase);
+    }
+
+
 }
 
 

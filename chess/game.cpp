@@ -39,6 +39,11 @@ void Game::InitPlateau(QGraphicsScene *scene)
 
 void Game::InstallPieces(QGraphicsScene *scene)
 {
+    for (int i = 0; i < 8; i++){
+        for (int j = 0; j < 8; j++){
+            plateau[i][j] = NULL;
+        }
+    }
 
     for (auto piece : blanc.GetPieces())
     {
@@ -69,6 +74,15 @@ void Game::SetPiece(QGraphicsScene *scene, QPixmap piece, int c, int l){
     //pawnItem->setPos(c * SQUARE_SIZE, l * SQUARE_SIZE);
 
 
+}
+
+void Game::FirstClickedPiece(Piece* piece){
+
+    std::vector<Vector2> coups = piece->Mouvement(plateau);
+
+    for (auto coup : coups){
+        std::cout << coup.c << coup.l << std::endl;
+    }
 }
 
 

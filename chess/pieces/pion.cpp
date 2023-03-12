@@ -1,6 +1,6 @@
 #include "pion.h"
 
-Pion::Pion(int l, int c, Color color) : Piece(l, c, color)
+Pion::Pion(int l, int c, Color color) : Piece(Vector2(c, l), color)
 {
     _type = TypePiece::pion;
 
@@ -16,6 +16,10 @@ Pion::~Pion(){
 
 }
 
-void Pion:: Mouvement(int l, int c){
+std::vector<Vector2> Pion:: Mouvement(Piece* plateau[8][8]){
     std::cout << "Mouvement pion" << std::endl;
+
+    std::vector<Vector2> coups;
+
+    return coups;
 }

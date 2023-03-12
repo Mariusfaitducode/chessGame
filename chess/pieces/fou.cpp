@@ -1,6 +1,6 @@
 #include "fou.h"
 
-Fou::Fou(int l, int c, Color color) : Piece(l, c, color)
+Fou::Fou(int l, int c, Color color) : Piece(Vector2(c, l), color)
 {
     _type = TypePiece::fou;
 
@@ -17,6 +17,10 @@ Fou::~Fou(){
 
 }
 
-void Fou:: Mouvement(int l, int c){
+std::vector<Vector2> Fou:: Mouvement(Piece* plateau[8][8]){
     std::cout << "Mouvement fou" << std::endl;
+
+    std::vector<Vector2> coups;
+
+    return coups;
 }

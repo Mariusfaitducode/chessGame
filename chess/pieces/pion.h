@@ -11,7 +11,7 @@ class Pion : public Piece
 public:
     Pion(int l, int c, Color color);
     ~Pion();
-    void Mouvement(int x, int y) override;
+    std::vector<Vector2> Mouvement(Piece* plateau[8][8]) override;
 };
 
 #endif // PION_H

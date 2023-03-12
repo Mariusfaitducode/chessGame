@@ -12,7 +12,7 @@ class Dame : public Piece
 public:
     Dame(int l, int c, Color color);
     ~Dame();
-    void Mouvement(int x, int y) override;
+    std::vector<Vector2> Mouvement(Piece* plateau[8][8]) override;
 };
 
 #endif // DAME_H

@@ -12,7 +12,7 @@ class Roi : public Piece
 public:
     Roi(int l, int c, Color color);
     ~Roi();
-    void Mouvement(int x, int y) override;
+    std::vector<Vector2> Mouvement(Piece* plateau[8][8]) override;
 };
 
 #endif // ROI_H
