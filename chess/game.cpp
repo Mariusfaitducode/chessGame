@@ -43,10 +43,14 @@ void Game::InstallPieces(QGraphicsScene *scene)
     for (auto piece : blanc.GetPieces())
     {
         SetPiece(scene, piece->GetImage(), piece->C(), piece->L());
+
+        plateau[piece->C()][piece->L()] = piece;
     }
     for (auto piece : noir.GetPieces())
     {
         SetPiece(scene, piece->GetImage(), piece->C(), piece->L());
+
+        plateau[piece->C()][piece->L()] = piece;
     }
 
 }

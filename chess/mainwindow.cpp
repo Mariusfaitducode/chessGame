@@ -4,43 +4,68 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsSceneMouseEvent>
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
-    ui->setupUi(this);
-    QGraphicsScene *scene = new QGraphicsScene(this);
-    ui->graphicsView->setScene(scene);
-
-
-
-    Game game;
-
-    game.InitPlateau(scene);
-
-    game.InstallPieces(scene);
-
-    //connect(scene, &ChessScene::sceneClicked, this, &MainWindow::onSceneClicked);
-
-    connect(scene, SIGNAL(mousePressed()), SLOT());
-}
-
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-/*
+
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    //QGraphicsScene *scene = new QGraphicsScene(this);
+
+    scene = new ChessScene(this);
+
+    ui->graphicsView->setScene(scene);
+
+
+
+    game = new Game();
+
+    game->InitPlateau(scene);
+
+    game->InstallPieces(scene);
+
+    //connect(scene, &ChessScene::sceneClicked, this, &MainWindow::onSceneClicked);
+
+    connect(scene, &ChessScene::mousePressed, this, &MainWindow::onSceneClicked);
+
+    //QObject::connect(this, SIGNAL(mousePressed()), SLOT(placerPionBleu()));
+
+    //connect(scene, mousePressed(), this, &MainWindow::mousePressEvent);
+}
+
+
+
+
 void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
 {
     // Récupérer les coordonnées de la case dans laquelle l'utilisateur a cliqué
-    int x = event->scenePos().x() / SQUARE_SIZE;
-    int y = event->scenePos().y() / SQUARE_SIZE;
+    int c = event->scenePos().x() / SQUARE_SIZE;
+    int l = event->scenePos().y() / SQUARE_SIZE;
+
+    std::cout << "X : " << c ;
+    std::cout << "Y : " << l ;
+
+    game->GetPiece(c, l)->Mouvement(1,1);
+
+    //game->blanc.ShowPieces();
 
     // Afficher les coordonnées dans la console
     //qDebug() << "Case cliquée : (" << x << ", " << y << ")";
-}*/
+}
 
+
+void ChessScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    emit mousePressed(event);
+}
+
+
+/*
 void MainWindow::mousePressEvent(QMouseEvent * e)
 
 {
@@ -58,4 +83,4 @@ void MainWindow::mousePressEvent(QMouseEvent * e)
     //qDebug() << "Case cliquée : (" << x << ", " << y << ")";
 
     emit mousePressed();                                                      //émission du signal pour déclencher le slot
-}
+}*/

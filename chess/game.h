@@ -21,11 +21,13 @@ public:
 
     void SetPiece(QGraphicsScene *scene, QPixmap piece, int c, int l);
 
-public:
+    Piece* GetPiece(int c, int l){return plateau[c][l];}
+
+private:
     Player blanc;
     Player noir;
 
-    char plateau[8][8];
+    Piece* plateau[8][8];
 };
 
 #endif // GAME_H

@@ -6,6 +6,30 @@
 #include <game.h>
 
 #include "QMouseEvent"
+#include "qgraphicssceneevent.h"
+
+
+
+//Scene de notre plateau + Gestion des clicks
+
+
+class ChessScene : public QGraphicsScene
+{
+    Q_OBJECT
+public:
+    ChessScene(QObject* parent = nullptr) : QGraphicsScene(parent) {}
+
+signals:
+    //void sceneClicked(QPointF point);
+    void mousePressed(QGraphicsSceneMouseEvent* event);
+
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+};
+
+
+
+//Fenetre
 
 namespace Ui {
 class MainWindow;
@@ -20,14 +44,17 @@ public:
     ~MainWindow();
 
 public slots:
-    //void onSceneClicked(QGraphicsSceneMouseEvent *event);
-    void mousePressEvent(QMouseEvent * e);
+    void onSceneClicked(QGraphicsSceneMouseEvent *event);
+    //void mousePressEvent(QMouseEvent * e);
 
 signals:
-    void mousePressed();
+    //void mousePressed();
 
 private:
     Ui::MainWindow *ui;
+    ChessScene *scene;
+
+    Game *game;
 };
 
 
