@@ -76,14 +76,27 @@ void Game::SetPiece(QGraphicsScene *scene, QPixmap piece, int c, int l){
 
 }
 
-void Game::FirstClickedPiece(Piece* piece){
+void Game::FirstClickedPiece(QGraphicsScene *scene, Piece* piece){
 
     std::vector<Vector2> coups = piece->Mouvement(plateau);
 
     for (auto coup : coups){
         std::cout << coup.c << coup.l << std::endl;
+
+        int row = coup.l;
+        int col = coup.c;
+
+        QGraphicsEllipseItem* ellipse = new QGraphicsEllipseItem();
+
+        ellipse->setRect(col * SQUARE_SIZE + 3*SQUARE_SIZE/8, row * SQUARE_SIZE + 3*SQUARE_SIZE/8, SQUARE_SIZE/4, SQUARE_SIZE/4);
+        ellipse->setBrush(QColor(128, 128, 128, 128));
+        QPen pen(Qt::transparent);
+        ellipse->setPen(pen);
+        scene->addItem(ellipse);
     }
 }
+
+
 
 
 

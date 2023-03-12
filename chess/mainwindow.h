@@ -18,6 +18,8 @@ class ChessScene : public QGraphicsScene
     Q_OBJECT
 public:
     ChessScene(QObject* parent = nullptr) : QGraphicsScene(parent) {}
+    void clearHighlights();
+    //void highlightSquares(std::vector<Vector2> coups);
 
 signals:
     //void sceneClicked(QPointF point);

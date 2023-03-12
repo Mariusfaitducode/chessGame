@@ -4,6 +4,7 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsSceneMouseEvent>
 
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -61,7 +62,12 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
 
         //std::vector<Vector2> coups = clickedCase->Mouvement()
 
-        game->FirstClickedPiece(clickedCase);
+        game->FirstClickedPiece(scene, clickedCase);
+    }
+    else{
+        //erase click
+
+
     }
 
 
@@ -72,6 +78,21 @@ void ChessScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     emit mousePressed(event);
 }
+
+/*
+void ChessScene::clearHighlights()
+{
+    // Parcours tous les éléments de la scène
+    QList<QGraphicsItem *> itemsList = items();
+    for (QGraphicsItem *item : itemsList) {
+        // Si l'élément est un cercle de highlight, on le supprime
+        if (item->data(HighlightRole) == true) {
+            removeItem(item);
+            delete item;
+        }
+    }
+}*/
+
 
 
 /*

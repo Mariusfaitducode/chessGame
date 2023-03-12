@@ -23,7 +23,7 @@ public:
 
     Piece* GetPiece(int c, int l){return plateau[c][l];}
 
-    void FirstClickedPiece(Piece* piece);
+    void FirstClickedPiece(QGraphicsScene *scene, Piece* piece);
 
     //Piece *[8][8] GetPlateau(){return plateau;}
 
