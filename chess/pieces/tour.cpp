@@ -64,8 +64,6 @@ std::vector<Vector2> Tour:: Mouvement(Piece* plateau[8][8]){
                 coups.push_back(Vector2(c, l + i));
             }
         }
-
-
     }
 
     return coups;

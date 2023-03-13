@@ -50,8 +50,8 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
     int c = event->scenePos().x() / SQUARE_SIZE;
     int l = event->scenePos().y() / SQUARE_SIZE;
 
-    std::cout << "X : " << c << std::endl;
-    std::cout << "Y : " << l << std::endl;
+    std::cout << "C : " << c << std::endl;
+    std::cout << "L : " << l << std::endl;
 
     Piece* clickedCase = game->GetPiece(c, l);
 

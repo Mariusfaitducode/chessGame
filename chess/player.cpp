@@ -31,7 +31,7 @@ Player::Player(Color color)
         std::cout << "Constructeur noir" << std::endl;
 
         for (int i = 0; i < 8; i++){
-            //_pieces.push_back(new Pion(6, i, color));
+            _pieces.push_back(new Pion(6, i, color));
         }
         _pieces.push_back(new Tour(7, 0, color));
         _pieces.push_back(new Tour(7, 7, color));

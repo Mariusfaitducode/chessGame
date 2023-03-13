@@ -6,6 +6,9 @@
 #include <piece.h>
 #include <enum.h>
 
+#include <pieces\tour.h>
+#include <pieces\fou.h>
+
 
 class Dame : public Piece
 {
