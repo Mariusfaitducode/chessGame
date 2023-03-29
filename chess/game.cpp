@@ -47,29 +47,45 @@ void Game::InstallPieces(QGraphicsScene *scene)
 
     for (auto piece : blanc.GetPieces())
     {
-        SetPiece(scene, piece->GetImage(), piece->C(), piece->L());
+        SetPiece(scene, piece);
 
         plateau[piece->C()][piece->L()] = piece;
     }
     for (auto piece : noir.GetPieces())
     {
-        SetPiece(scene, piece->GetImage(), piece->C(), piece->L());
+        SetPiece(scene, piece);
 
         plateau[piece->C()][piece->L()] = piece;
     }
 
 }
 
-void Game::SetPiece(QGraphicsScene *scene, QPixmap piece, int c, int l){
+void Game::SetPiece(QGraphicsScene *scene, Piece *piece){
 
-    QGraphicsPixmapItem *pawnItem = scene->addPixmap(piece);
+    QPixmap img = piece->GetImage();
+    int c = piece->C();
+    int l = piece->L();
 
-    pawnItem->setScale(0.3333);
+    QGraphicsPixmapItem *pieceItem = scene->addPixmap(img);
 
-    int x = c * SQUARE_SIZE + (SQUARE_SIZE / 2) - (piece.width() / 6);
-    int y = l * SQUARE_SIZE + (SQUARE_SIZE / 2) - (piece.height() / 6);
+    pieceItem->setScale(0.3333);
 
-    pawnItem->setPos(x, y);
+    int x = c * SQUARE_SIZE + (SQUARE_SIZE / 2) - (img.width() / 6);
+    int y = l * SQUARE_SIZE + (SQUARE_SIZE / 2) - (img.height() / 6);
+
+    pieceItem->setPos(x, y);
+
+    //piece->_item = pieceItem;
+    piece->SetItem(pieceItem);
+
+    //pawnItem->setPos(c * SQUARE_SIZE, l * SQUARE_SIZE);
+
+
+}
+
+void Game::RemovePiece(QGraphicsScene *scene, Piece *piece){
+
+    scene->removeItem(piece->GetItem());
 
     //pawnItem->setPos(c * SQUARE_SIZE, l * SQUARE_SIZE);
 
@@ -87,16 +103,12 @@ Player Game::GetPlayer(Piece *piece){
 }
 
 
-void Game::SetCoupsPlayer(Vector2 pos, QGraphicsEllipseItem ellipse){
 
-
-}
 
 void Game::FirstClickedPiece(QGraphicsScene *scene, Piece* piece){
 
+    selectedPiece = piece;
     std::vector<Vector2> coups = piece->Mouvement(plateau);
-
-
 
     for (auto coup : coups){
         std::cout << coup.c << coup.l << std::endl;
@@ -122,6 +134,31 @@ void Game::FirstClickedPiece(QGraphicsScene *scene, Piece* piece){
     }
 }
 
+void Game::PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase){
+
+    if (clickedCase == NULL){
+
+        //clickedCase = selectedPiece;
+        //clickedCase->SetPos(c, l);
+        std::cout << "Piece played " << std::endl;
+
+        //SetPiece(scene, selectedPiece);
+
+        //On enlève la pièce de sa case initiale
+        plateau[selectedPiece->C()][selectedPiece->L()] = NULL;
+        RemovePiece(scene, selectedPiece);
+
+
+        //On ajoute la pièce à la bonne case
+        selectedPiece->SetPos(c, l);
+        plateau[c][l] = selectedPiece;
+
+        SetPiece(scene, plateau[c][l]);
+    }
+    //clickedCase->ShowPiece();
+    //GetPiece(c, l)->ShowPiece();
+}
+
 
 
 
@@ -140,8 +177,19 @@ void Game::RemoveCoups(QGraphicsScene *scene){
 }
 
 
+bool Game::ClickedInCoups(int c, int l){
 
+    for (auto coup : possible_coups){
 
+        int C = coup._pos.c;
+        int L = coup._pos.l;
+
+        if ( c == C && l == L){
+            return true;
+        }
+    }
+    return false;
+}
 
 
 

@@ -44,6 +44,13 @@ void Piece::ShowPiece(){
 }
 
 
+void Piece::SetPos(int c, int l){
+
+    _pos.c = c;
+    _pos.l = l;
+}
+
+
 void Piece::NextCases(Vector2 v1, Vector2 v2, std::vector<Vector2>* coups, Piece* plateau[8][8]){
 
     int c = 2 * v2.c - v1.c;

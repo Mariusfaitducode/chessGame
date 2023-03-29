@@ -33,16 +33,23 @@ public:
     Piece(Vector2 pos, Color color);
 
     QPixmap GetImage(){return _image;}
+    void SetItem(QGraphicsPixmapItem *item){_item = item;}
+    QGraphicsPixmapItem *GetItem(){return _item;}
+
     Vector2 GetPos(){return _pos;}
     Color GetColor(){return _color;}
 
     int L(){return _pos.l;}
     int C(){return _pos.c;}
 
+    void SetPos(int c, int l);
+
     void ShowPiece();
 
     virtual ~Piece();
     virtual std::vector<Vector2> Mouvement(Piece* plateau[8][8]) = 0;
+
+
 
 protected:
     void NextCases(Vector2 v1, Vector2 v2, std::vector<Vector2>* coups, Piece* plateau[8][8]);
@@ -58,6 +65,8 @@ protected:
 
     TypePiece _type;
     QPixmap _image;
+    QGraphicsPixmapItem *_item;
+
 };
 
 #endif // PIECE_H

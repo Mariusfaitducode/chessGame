@@ -21,13 +21,14 @@ public:
 
     void InstallPieces(QGraphicsScene *scene);
 
-    void SetPiece(QGraphicsScene *scene, QPixmap piece, int c, int l);
+    //Ajout et retrait d'une pièce sur l'interface
+    void SetPiece(QGraphicsScene *scene, Piece *piece);
+    void RemovePiece(QGraphicsScene *scene, Piece *piece);
 
     Piece* GetPiece(int c, int l){return plateau[c][l];}
 
     Player GetPlayer(Piece *piece);
 
-    void SetCoupsPlayer(Vector2 pos, QGraphicsEllipseItem ellipse);
 
     void FirstClickedPiece(QGraphicsScene *scene, Piece* piece);
 
@@ -37,6 +38,16 @@ public:
     //Fonctions pour possible_coups
     void AddCoup(Vector2 pos, QGraphicsEllipseItem *ellipse);
     void RemoveCoups(QGraphicsScene *scene);
+
+    // second clique si il y'a des coups possibles sélectionnés
+    // possible_coup not empty
+    bool IsFirstClick(){return possible_coups.empty();}
+
+    bool ClickedInCoups(int c, int l);
+
+
+    void PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase);
+
 
 
 private:
@@ -49,6 +60,9 @@ private:
 
     //La classe Coup représente les coups affichés lorsque l'on clique sur une pièce, définit dans player.h
     std::vector<Coup> possible_coups;
+
+
+    Piece* selectedPiece;
 
 };
 

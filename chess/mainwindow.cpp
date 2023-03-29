@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->graphicsView->setScene(scene);
 
 
+    //Initialisation du jeu
 
     game = new Game();
 
@@ -31,14 +32,10 @@ MainWindow::MainWindow(QWidget *parent) :
     game->InstallPieces(scene);
 
 
-
-    //connect(scene, &ChessScene::sceneClicked, this, &MainWindow::onSceneClicked);
+    //Detection des cliques
 
     connect(scene, &ChessScene::mousePressed, this, &MainWindow::onSceneClicked);
 
-    //QObject::connect(this, SIGNAL(mousePressed()), SLOT(placerPionBleu()));
-
-    //connect(scene, mousePressed(), this, &MainWindow::mousePressEvent);
 }
 
 
@@ -60,17 +57,25 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
 
         clickedCase->ShowPiece();
 
-        //std::vector<Vector2> coups = clickedCase->Mouvement()
+        if (game->IsFirstClick()){
 
-        game->FirstClickedPiece(scene, clickedCase);
+            game->FirstClickedPiece(scene, clickedCase);
+        }
+        else if(!game->ClickedInCoups(c, l)){
+
+            game->RemoveCoups(scene);
+            game->FirstClickedPiece(scene, clickedCase);
+        }
     }
     else{
         //erase click
-        game->RemoveCoups(scene);
 
+        if(game->ClickedInCoups(c, l)){
+
+            game->PlayPiece(scene, c, l, clickedCase);
+            //game->SetPiece(scene, clickedCase->GetImage(), clickedCase->C(), clickedCase->L());
+        }
     }
-
-
 }
 
 
@@ -79,38 +84,7 @@ void ChessScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     emit mousePressed(event);
 }
 
-/*
-void ChessScene::clearHighlights()
-{
-    // Parcours tous les éléments de la scène
-    QList<QGraphicsItem *> itemsList = items();
-    for (QGraphicsItem *item : itemsList) {
-        // Si l'élément est un cercle de highlight, on le supprime
-        if (item->data(HighlightRole) == true) {
-            removeItem(item);
-            delete item;
-        }
-    }
-}*/
 
 
 
-/*
-void MainWindow::mousePressEvent(QMouseEvent * e)
 
-{
-
-    QPointF pt = ui->graphicsView->mapToScene(e->pos());//récupération de la position
-
-    int pressedX=pt.x();                                                           //adaptation à la position : pressedX
-
-    int pressedY=pt.y();                                                         //adaptation à la position : pressedY
-
-
-    std::cout << "X : " << pressedX ;
-    std::cout << "Y : " << pressedY ;
-
-    //qDebug() << "Case cliquée : (" << x << ", " << y << ")";
-
-    emit mousePressed();                                                      //émission du signal pour déclencher le slot
-}*/

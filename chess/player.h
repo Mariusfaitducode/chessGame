@@ -28,8 +28,6 @@ public:
 
     //~Coup();
     QGraphicsEllipseItem *_ellipse;
-
-private:
     Vector2 _pos;
 
 
