@@ -138,12 +138,6 @@ void Game::PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase){
 
     if (clickedCase == NULL){
 
-        //clickedCase = selectedPiece;
-        //clickedCase->SetPos(c, l);
-        std::cout << "Piece played " << std::endl;
-
-        //SetPiece(scene, selectedPiece);
-
         //On enlève la pièce de sa case initiale
         plateau[selectedPiece->C()][selectedPiece->L()] = NULL;
         RemovePiece(scene, selectedPiece);
@@ -155,6 +149,26 @@ void Game::PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase){
 
         SetPiece(scene, plateau[c][l]);
     }
+    else{
+
+        //On enlève la pièce de sa case initiale
+        plateau[selectedPiece->C()][selectedPiece->L()] = NULL;
+        RemovePiece(scene, selectedPiece);
+
+        //On enlève la pièce qui se fait manger
+        RemovePiece(scene, clickedCase);
+        clickedCase = NULL;
+
+
+        //On ajoute la pièce à la bonne case
+        selectedPiece->SetPos(c, l);
+        plateau[c][l] = selectedPiece;
+
+        SetPiece(scene, plateau[c][l]);
+
+    }
+
+    std::cout << "Piece played " << std::endl;
     //clickedCase->ShowPiece();
     //GetPiece(c, l)->ShowPiece();
 }

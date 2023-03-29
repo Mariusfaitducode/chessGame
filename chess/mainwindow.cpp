@@ -66,6 +66,10 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
             game->RemoveCoups(scene);
             game->FirstClickedPiece(scene, clickedCase);
         }
+        else{
+            game->PlayPiece(scene, c, l, clickedCase);
+            game->RemoveCoups(scene);
+        }
     }
     else{
         //erase click
@@ -74,6 +78,7 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
 
             game->PlayPiece(scene, c, l, clickedCase);
             //game->SetPiece(scene, clickedCase->GetImage(), clickedCase->C(), clickedCase->L());
+            game->RemoveCoups(scene);
         }
     }
 }
