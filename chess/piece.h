@@ -17,8 +17,6 @@ public:
 
     //~Vector2();
 
-
-
 public:
 
     int c;

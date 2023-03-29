@@ -66,7 +66,7 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
     }
     else{
         //erase click
-
+        game->RemoveCoups(scene);
 
     }
 

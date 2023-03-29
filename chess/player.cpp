@@ -58,6 +58,9 @@ Player::~Player(){
     {
         delete piece;
     }
+    /*for (auto coup : _coups){
+        delete coup;
+    }*/
 }
 
 Player& Player:: operator = (const Player &p)
@@ -91,6 +94,7 @@ void Player::ShowPieces(){
         piece->ShowPiece();
     }
 }
+
 
 
 

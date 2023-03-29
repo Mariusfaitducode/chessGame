@@ -16,6 +16,26 @@
 #include <ostream>
 
 
+class Coup{
+
+public:
+    Coup(Vector2 pos, QGraphicsEllipseItem *ellipse){
+        _pos = pos;
+        _ellipse = ellipse;
+    }
+
+    //QGraphicsEllipseItem getEllipse(){return *_ellipse;}
+
+    //~Coup();
+    QGraphicsEllipseItem *_ellipse;
+
+private:
+    Vector2 _pos;
+
+
+};
+
+
 class Player
 {
 public:
@@ -30,10 +50,14 @@ public:
 
     void ShowPieces();
 
+
+
 private:
     //std::list<Piece*> _pieces;
     std::vector<Piece*> _pieces;
     Color _color;
+
+
 
 };
 

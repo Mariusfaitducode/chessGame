@@ -76,9 +76,27 @@ void Game::SetPiece(QGraphicsScene *scene, QPixmap piece, int c, int l){
 
 }
 
+Player Game::GetPlayer(Piece *piece){
+
+    if (piece->GetColor() == Color::blanc){
+        return blanc;
+    }
+    else{
+        return noir;
+    }
+}
+
+
+void Game::SetCoupsPlayer(Vector2 pos, QGraphicsEllipseItem ellipse){
+
+
+}
+
 void Game::FirstClickedPiece(QGraphicsScene *scene, Piece* piece){
 
     std::vector<Vector2> coups = piece->Mouvement(plateau);
+
+
 
     for (auto coup : coups){
         std::cout << coup.c << coup.l << std::endl;
@@ -92,8 +110,33 @@ void Game::FirstClickedPiece(QGraphicsScene *scene, Piece* piece){
         ellipse->setBrush(QColor(128, 128, 128, 128));
         QPen pen(Qt::transparent);
         ellipse->setPen(pen);
+
+
+        //GetPlayer(piece).AddCoup(*new Vector2(col, row), ellipse);
+
+
+
         scene->addItem(ellipse);
+
+        AddCoup(*new Vector2(col, row), ellipse);
     }
+}
+
+
+
+
+void Game::AddCoup(Vector2 pos, QGraphicsEllipseItem *ellipse){
+
+    possible_coups.push_back(*new Coup(pos, ellipse));
+}
+
+void Game::RemoveCoups(QGraphicsScene *scene){
+
+    for (auto coup : possible_coups){
+        scene->removeItem(coup._ellipse);
+
+    }
+    possible_coups.clear();
 }
 
 
