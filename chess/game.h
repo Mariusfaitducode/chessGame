@@ -49,6 +49,9 @@ public:
     void PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase);
 
 
+    Color GetColorTour();
+
+    void IncrementTour(){tour++;}
 
 private:
 
@@ -61,6 +64,7 @@ private:
     //La classe Coup représente les coups affichés lorsque l'on clique sur une pièce, définit dans player.h
     std::vector<Coup> possible_coups;
 
+    int tour;
 
     Piece* selectedPiece;
 

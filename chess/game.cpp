@@ -12,7 +12,7 @@ Game::Game()
     blanc = *new Player(Color::blanc);
     noir = *new Player(Color::noir);
 
-
+    tour = 0;
 }
 
 void Game::InitPlateau(QGraphicsScene *scene)
@@ -167,7 +167,7 @@ void Game::PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase){
         SetPiece(scene, plateau[c][l]);
 
     }
-
+    IncrementTour();
     std::cout << "Piece played " << std::endl;
     //clickedCase->ShowPiece();
     //GetPiece(c, l)->ShowPiece();
@@ -203,6 +203,18 @@ bool Game::ClickedInCoups(int c, int l){
         }
     }
     return false;
+}
+
+
+Color Game::GetColorTour(){
+
+    if (tour % 2 == 0){
+        return Color::blanc;
+    }
+    else{
+        return Color::noir;
+    }
+
 }
 
 

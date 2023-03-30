@@ -57,23 +57,28 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
 
         clickedCase->ShowPiece();
 
-        if (game->IsFirstClick()){
+        if (clickedCase->GetColor() == game->GetColorTour()){
 
-            game->FirstClickedPiece(scene, clickedCase);
-        }
-        else if(!game->ClickedInCoups(c, l)){
+            //Si aucune pièce n'est sélectionné
+            if (game->IsFirstClick()){
 
-            game->RemoveCoups(scene);
-            game->FirstClickedPiece(scene, clickedCase);
+                game->FirstClickedPiece(scene, clickedCase);
+            }
+            //Si une nouvelle pièce est sélectionné
+            else{
+                game->RemoveCoups(scene);
+                game->FirstClickedPiece(scene, clickedCase);
+            }
         }
+        //Si une pièce est mangé
         else{
-            game->PlayPiece(scene, c, l, clickedCase);
-            game->RemoveCoups(scene);
+            if (game->ClickedInCoups(c, l)){
+                game->PlayPiece(scene, c, l, clickedCase);
+                game->RemoveCoups(scene);
+            }
         }
     }
     else{
-        //erase click
-
         if(game->ClickedInCoups(c, l)){
 
             game->PlayPiece(scene, c, l, clickedCase);
