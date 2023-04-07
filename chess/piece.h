@@ -38,6 +38,7 @@ public:
 
     Vector2 GetPos(){return _pos;}
     Color GetColor(){return _color;}
+    TypePiece GetType(){return _type;}
 
     int L(){return _pos.l;}
     int C(){return _pos.c;}

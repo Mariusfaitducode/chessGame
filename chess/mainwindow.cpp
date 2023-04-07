@@ -52,9 +52,7 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
 
     Piece* clickedCase = game->GetPiece(c, l);
 
-    if (game->IsInCheck()){
-        std::cout << "Is In Check"<< std::endl;
-    }
+
 
 
     if (clickedCase != NULL){ // Si il y'a bien une pièce

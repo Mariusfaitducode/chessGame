@@ -29,7 +29,7 @@ public:
     Piece* GetPiece(int c, int l){return plateau[c][l];}
 
 
-    void SimulatePiece(int c, int l);
+    void SimulatePiece(int c, int l, Piece* copy_plateau[8][8], int last_c, int last_l);
 
     //Fonction permettant de vérifier si les coups donnés ne provoquent pas d'échecs
     //Ressort les coups seulement valide
@@ -48,7 +48,7 @@ public:
     // second clique si il y'a des coups possibles sélectionnés
     // possible_coup not empty
 
-    bool IsInCheck();
+    bool IsInCheck(Piece* copy_plateau[8][8]);
 
     bool IsFirstClick(){return possible_coups.empty();}
 
@@ -59,6 +59,7 @@ public:
 
 
     Color GetColorTour();
+    std::vector<Color> GetColorsTour();
     std::vector<Player*> GetPlayersTour();
 
     void IncrementTour(){tour++;}
