@@ -11,6 +11,8 @@ Player::Player(Color color)
     if(color == Color::blanc){
         std::cout << "Constructeur blanc" << std::endl;
 
+        _pieces.push_back(new Roi(0, 4, color));
+
         for (int i = 0; i < 8; i++){
             _pieces.push_back(new Pion(1, i, color));
         }
@@ -24,11 +26,13 @@ Player::Player(Color color)
         _pieces.push_back(new Fou(0, 5, color));
 
         _pieces.push_back(new Dame(0, 3, color));
-        _pieces.push_back(new Roi(0, 4, color));
+
 
     }
     else{
         std::cout << "Constructeur noir" << std::endl;
+
+        _pieces.push_back(new Roi(7, 4, color));
 
         for (int i = 0; i < 8; i++){
             _pieces.push_back(new Pion(6, i, color));
@@ -43,7 +47,7 @@ Player::Player(Color color)
         _pieces.push_back(new Fou(7, 5, color));
 
         _pieces.push_back(new Dame(7, 3, color));
-        _pieces.push_back(new Roi(7, 4, color));
+
 
     }
 

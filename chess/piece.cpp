@@ -43,6 +43,19 @@ void Piece::ShowPiece(){
     std::cout << std::endl;
 }
 
+std::string Piece::ShowSign(){
+
+    switch(_type){
+        case TypePiece::pion: return "P";
+        case TypePiece::cavalier: return "C";
+        case TypePiece::fou: return "F";
+        case TypePiece::tour: return "T";
+        case TypePiece::dame: return "D";
+        case TypePiece::roi: return "R";
+        break;
+    }
+}
+
 
 void Piece::SetPos(int c, int l){
 

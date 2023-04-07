@@ -79,9 +79,9 @@ void Game::SetPiece(QGraphicsScene *scene, Piece *piece){
     piece->SetItem(pieceItem);
 
     //pawnItem->setPos(c * SQUARE_SIZE, l * SQUARE_SIZE);
-
-
 }
+
+
 
 void Game::RemovePiece(QGraphicsScene *scene, Piece *piece){
 
@@ -92,7 +92,7 @@ void Game::RemovePiece(QGraphicsScene *scene, Piece *piece){
 
 }
 
-Player Game::GetPlayer(Piece *piece){
+/*Player Game::GetPlayer(Piece *piece){
 
     if (piece->GetColor() == Color::blanc){
         return blanc;
@@ -100,15 +100,91 @@ Player Game::GetPlayer(Piece *piece){
     else{
         return noir;
     }
+}*/
+
+
+bool Game::IsInCheck(){
+
+    //GetPlayer renvoie le joueur à qui c'est le tour en première position et l'autre en deuxième
+
+    std::vector<Player*> players = GetPlayersTour();
+
+    for (auto piece : players[1]->GetPieces())
+    {
+
+        std::vector<Vector2> coups = piece->Mouvement(plateau);
+
+        //On vérifie que le roi n'est pas dans coups
+        //Le roi est la première pièce de chaque joueur
+
+        Vector2 king = players[0]->GetPiece(0)->GetPos();
+
+        for (auto coup : coups){
+            if (king.c == coup.c && king.l == coup.l){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+void Game::SimulatePiece(int c, int l){
+
+    //On enlève la pièce de sa case initiale
+    plateau[selectedPiece->C()][selectedPiece->L()] = NULL;
+
+    //On ajoute la pièce à la bonne case
+    selectedPiece->SetPos(c, l);
+    plateau[c][l] = selectedPiece;
+}
+
+std::vector<Vector2> Game::VerifyCoups(std::vector<Vector2> coups){
+
+    std::vector<Vector2> valid_coups;
+
+    for (auto coup : coups){
+
+        int c = coup.c;
+        int l = coup.l;
+
+        int last_c = selectedPiece->C();
+        int last_l = selectedPiece->L();
+
+        bool eat_piece = false;
+        Piece* last_piece;
+
+        if (plateau[c][l] != NULL){
+
+            last_piece = plateau[c][l];
+            plateau[c][l] = NULL;
+            eat_piece = true;
+        }
+
+        SimulatePiece(c, l);
+
+        if(!IsInCheck()){
+            valid_coups.push_back(coup);
+        }
+
+        SimulatePiece(last_c, last_l);
+
+        if ( eat_piece){
+            plateau[last_c][last_l] = last_piece;
+        }
+    }
+
+    return valid_coups;
 }
 
 
 
+//Fonction qui détecte lorsqu'une pièce est séléctionné et affiche les coups possibles
 
 void Game::FirstClickedPiece(QGraphicsScene *scene, Piece* piece){
 
     selectedPiece = piece;
-    std::vector<Vector2> coups = piece->Mouvement(plateau);
+    std::vector<Vector2> coups = VerifyCoups(piece->Mouvement(plateau));
 
     for (auto coup : coups){
         std::cout << coup.c << coup.l << std::endl;
@@ -126,13 +202,14 @@ void Game::FirstClickedPiece(QGraphicsScene *scene, Piece* piece){
 
         //GetPlayer(piece).AddCoup(*new Vector2(col, row), ellipse);
 
-
-
         scene->addItem(ellipse);
 
         AddCoup(*new Vector2(col, row), ellipse);
     }
 }
+
+
+//Fonction permettant de jouer la pièce sélectionné sur la case cliquée (c, l)
 
 void Game::PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase){
 
@@ -214,11 +291,43 @@ Color Game::GetColorTour(){
     else{
         return Color::noir;
     }
+}
+
+std::vector<Player*> Game::GetPlayersTour(){
+
+    std::vector<Player*> players;
+
+    if (tour % 2 == 0){
+        players.push_back(&blanc);
+        players.push_back(&noir);
+        return players;
+    }
+    else{
+        players.push_back(&noir);
+        players.push_back(&blanc);
+        return players;
+    }
 
 }
 
+void Game::DisplayPlateau(){
 
+    std::cout << " ---   ---   ---   ---   ---   ---   ---   --- "<< std::endl;
+    for (int l = 0; l < BOARD_SIZE; l++){
+        for (int c = 0; c < BOARD_SIZE; c++){
 
+            if ( plateau[c][l] != NULL){
+                std::cout << "| " << plateau[c][l]->ShowSign() << " | ";
+            }
+            else{
+                std::cout << "|   | ";
+            }
+
+        }
+        std::cout << std::endl;
+        std::cout << " ---   ---   ---   ---   ---   ---   ---   --- "<< std::endl;
+    }
+}
 
 
 

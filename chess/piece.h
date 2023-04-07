@@ -46,6 +46,9 @@ public:
 
     void ShowPiece();
 
+    std::string ShowSign();
+
+
     virtual ~Piece();
     virtual std::vector<Vector2> Mouvement(Piece* plateau[8][8]) = 0;
 

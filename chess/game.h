@@ -17,6 +17,7 @@ class Game
 public:
     Game();
 
+    //Initialisations du plateau
     void InitPlateau(QGraphicsScene *scene);
 
     void InstallPieces(QGraphicsScene *scene);
@@ -27,9 +28,14 @@ public:
 
     Piece* GetPiece(int c, int l){return plateau[c][l];}
 
-    Player GetPlayer(Piece *piece);
 
+    void SimulatePiece(int c, int l);
 
+    //Fonction permettant de vérifier si les coups donnés ne provoquent pas d'échecs
+    //Ressort les coups seulement valide
+    std::vector<Vector2> VerifyCoups(std::vector<Vector2> coups);
+
+    //Fonction qui détecte lorsqu'une pièce est séléctionné et affiche les coups possibles
     void FirstClickedPiece(QGraphicsScene *scene, Piece* piece);
 
     //Piece *[8][8] GetPlateau(){return plateau;}
@@ -41,6 +47,9 @@ public:
 
     // second clique si il y'a des coups possibles sélectionnés
     // possible_coup not empty
+
+    bool IsInCheck();
+
     bool IsFirstClick(){return possible_coups.empty();}
 
     bool ClickedInCoups(int c, int l);
@@ -50,8 +59,11 @@ public:
 
 
     Color GetColorTour();
+    std::vector<Player*> GetPlayersTour();
 
     void IncrementTour(){tour++;}
+
+    void DisplayPlateau();
 
 private:
 
