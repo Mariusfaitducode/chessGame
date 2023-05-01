@@ -13,6 +13,10 @@ public:
     Roi(int l, int c, Color color);
     ~Roi();
     std::vector<Vector2> Mouvement(Piece* plateau[8][8]) override;
+
+    //bool CanRock() override;
+
+
 };
 
 #endif // ROI_H

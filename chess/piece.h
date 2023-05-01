@@ -53,6 +53,10 @@ public:
     virtual ~Piece();
     virtual std::vector<Vector2> Mouvement(Piece* plateau[8][8]) = 0;
 
+    //virtual bool CanRock(){return false;}
+
+    bool can_rock = false;
+
 
 
 protected:

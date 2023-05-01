@@ -292,6 +292,47 @@ void Game::PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase){
 
     if (clickedCase == NULL){
 
+        if (selectedPiece->GetType() == TypePiece::roi && selectedPiece->can_rock && ( c == 2 || c == 6 )){
+
+            int c_rook = 0;
+            int new_c_rook = 0;
+
+            if (c == 2){
+                //Grand rock
+                c_rook = 0;
+                new_c_rook = 3;
+            }else if (c == 6){
+                //Petit rock
+                c_rook = 7;
+                new_c_rook = 5;
+            }
+
+            //On enlève le roi de sa case initiale
+            plateau[selectedPiece->C()][selectedPiece->L()] = NULL;
+            RemovePiece(scene, selectedPiece);
+
+            //On enlève la tour de sa case initiale
+            Piece* tour = plateau[c_rook][l];
+            plateau[c_rook][l] = NULL;
+            RemovePiece(scene, tour);
+
+            //On ajoute le roi à la bonne case
+            selectedPiece->SetPos(c, l);
+            plateau[c][l] = selectedPiece;
+
+            tour->SetPos(new_c_rook, l);
+            plateau[new_c_rook][l] = tour;
+
+            SetPiece(scene, plateau[c][l]);
+            SetPiece(scene, plateau[new_c_rook][l]);
+
+            selectedPiece->can_rock = false;
+
+        }
+        else if (selectedPiece->GetType() == TypePiece::roi){
+            selectedPiece->can_rock = false;
+        }
+
         //On enlève la pièce de sa case initiale
         plateau[selectedPiece->C()][selectedPiece->L()] = NULL;
         RemovePiece(scene, selectedPiece);
