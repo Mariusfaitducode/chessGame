@@ -163,6 +163,7 @@ bool Game::IsInCheck(Piece* copy_plateau[8][8]){
                     for (auto coup : coups){
                         if (king.c == coup.c && king.l == coup.l){
                             coups.clear();
+
                             return true;
                         }
                     }
@@ -171,23 +172,67 @@ bool Game::IsInCheck(Piece* copy_plateau[8][8]){
             }
         }
     }
+
     return false;
 }
 
+bool Game::EchecEtMat(){
 
-void Game::SimulatePiece(int c, int l, Piece* copy_plateau[8][8], int last_c, int last_l){
+    std::vector<Color> color = GetColorsTour();
+
+    if (color[0] == Color::blanc){
+        qDebug() << "les blancs sont échecs";
+    }
+    else{
+        qDebug() << "les noirs sont échecs";
+    }
+
+
+    //On regarde tous nos coups
+    for (int l = 0; l < BOARD_SIZE; l++){
+        for (int c = 0; c < BOARD_SIZE; c++){
+
+            if (plateau[c][l] != NULL){
+
+                if (plateau[c][l]->GetColor() == Color::blanc){
+
+                    std::vector<Vector2> coups = plateau[c][l]->Mouvement(plateau);
+
+
+                    if (!VerifyCoups(coups, plateau[c][l]).empty()){
+
+
+                        qDebug() << "No mat";
+                        for (auto coup: coups){
+
+                            qDebug() << "Possible coups are :" << coup.c << coup.l;
+                        }
+                        return false;
+                    }
+                    coups.clear();
+                }
+            }
+        }
+    }
+
+    qDebug() << "Echec et mat";
+    return true;
+}
+
+
+void Game::SimulatePiece(int c, int l, Piece* copy_plateau[8][8], int last_c, int last_l, Piece* piece){
 
     //On enlève la pièce de sa case initiale
     copy_plateau[last_c][last_l] = NULL;
 
     //On ajoute la pièce à la bonne case
-    selectedPiece->SetPos(c, l);
-    copy_plateau[c][l] = selectedPiece;
+    piece->SetPos(c, l);
+    copy_plateau[c][l] = piece;
 }
 
 //Fonction qui renvoie la liste des coups valides pour une pièce donnée
 
-std::vector<Vector2> Game::VerifyCoups(std::vector<Vector2> coups){
+std::vector<Vector2> Game::VerifyCoups(std::vector<Vector2> coups, Piece* piece){
 
     //std::cout << "Debug selected_piece = " << ;
     std::vector<Vector2> valid_coups;
@@ -201,8 +246,8 @@ std::vector<Vector2> Game::VerifyCoups(std::vector<Vector2> coups){
         }
     }
 
-    int last_c = selectedPiece->C();
-    int last_l = selectedPiece->L();
+    int last_c = piece->C();
+    int last_l = piece->L();
 
     qDebug() <<"selected piece :"<<last_c<<last_l;
 
@@ -226,7 +271,7 @@ std::vector<Vector2> Game::VerifyCoups(std::vector<Vector2> coups){
         }
 
         //Simule le coup
-        SimulatePiece(c, l, copy_plateau, last_c, last_l);
+        SimulatePiece(c, l, copy_plateau, last_c, last_l, piece);
 
         DisplayCopyPlateau(copy_plateau);
 
@@ -239,7 +284,7 @@ std::vector<Vector2> Game::VerifyCoups(std::vector<Vector2> coups){
         }
 
         //Replace la pièce simulé à sa position de départ
-        SimulatePiece(last_c, last_l, copy_plateau, c, l);
+        SimulatePiece(last_c, last_l, copy_plateau, c, l, piece);
 
         if ( eat_piece){
             copy_plateau[c][l] = last_piece;
@@ -258,7 +303,7 @@ void Game::FirstClickedPiece(QGraphicsScene *scene, Piece* piece){
     selectedPiece = piece;
 
     //récupère les coups valides
-    std::vector<Vector2> coups = VerifyCoups(piece->Mouvement(plateau));
+    std::vector<Vector2> coups = VerifyCoups(piece->Mouvement(plateau), piece);
 
     if (selectedPiece->GetType() == TypePiece::roi){
         std::vector<Vector2> rock_coups = piece->RockMouvement(plateau);

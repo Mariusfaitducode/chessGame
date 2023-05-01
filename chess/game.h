@@ -35,11 +35,11 @@ public:
     Piece* GetPiece(int c, int l){return plateau[c][l];}
 
 
-    void SimulatePiece(int c, int l, Piece* copy_plateau[8][8], int last_c, int last_l);
+    void SimulatePiece(int c, int l, Piece* copy_plateau[8][8], int last_c, int last_l, Piece* piece);
 
     //Fonction permettant de vérifier si les coups donnés ne provoquent pas d'échecs
     //Ressort les coups seulement valide
-    std::vector<Vector2> VerifyCoups(std::vector<Vector2> coups);
+    std::vector<Vector2> VerifyCoups(std::vector<Vector2> coups, Piece* piece);
 
     //Fonction qui détecte lorsqu'une pièce est séléctionné et affiche les coups possibles
     void FirstClickedPiece(QGraphicsScene *scene, Piece* piece);
@@ -56,6 +56,12 @@ public:
 
     bool IsInCheck(Piece* copy_plateau[8][8]);
 
+    bool CheckInGame(){
+        return IsInCheck(plateau);
+    }
+
+    bool EchecEtMat();
+
     bool IsFirstClick(){return possible_coups.empty();}
 
     bool ClickedInCoups(int c, int l);
@@ -64,6 +70,7 @@ public:
     void PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase);
 
 
+    int GetTour(){return tour;}
     Color GetColorTour();
     std::vector<Color> GetColorsTour();
     std::vector<Player*> GetPlayersTour();

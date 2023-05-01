@@ -53,6 +53,8 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
     Piece* clickedCase = game->GetPiece(c, l);
 
 
+    bool played = false;
+
 
 
     if (clickedCase != NULL){ // Si il y'a bien une pièce
@@ -80,6 +82,7 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
             if (game->ClickedInCoups(c, l)){
                 game->PlayPiece(scene, c, l, clickedCase);
                 game->RemoveCoups(scene);
+                played = true;
             }
         }
     }
@@ -89,6 +92,40 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
             game->PlayPiece(scene, c, l, clickedCase);
             //game->SetPiece(scene, clickedCase->GetImage(), clickedCase->C(), clickedCase->L());
             game->RemoveCoups(scene);
+            played = true;
+        }
+    }
+
+    if ( played){
+        if (game->GetColorTour() == Color::blanc){
+            ui->label_tour->setText("Tour : "+ QString::number(game->GetTour() + 1)+ ", Coups aux blancs");
+        }
+        else{
+            ui->label_tour->setText("Tour : "+ QString::number(game->GetTour() + 1)+ ", Coups aux noirs");
+        }
+
+        if (game->CheckInGame()){
+
+            if (game->EchecEtMat()){
+                if (game->GetColorTour() == Color::blanc){
+                    ui->label_check->setText("Blancs échec et mat");
+                }
+                else{
+                    ui->label_check->setText("Noirs échec et mat");
+                }
+            }
+            else{
+                if (game->GetColorTour() == Color::blanc){
+                    ui->label_check->setText("Blancs échec");
+                }
+                else{
+                    ui->label_check->setText("Noirs échec");
+                }
+            }
+
+        }
+        else{
+            ui->label_check->setText("");
         }
     }
     //game->DisplayPlateau();
