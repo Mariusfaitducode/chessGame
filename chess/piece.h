@@ -8,6 +8,9 @@
 
 #include <QGraphicsPixmapItem>
 
+const int BOARD_SIZE = 8;
+
+
 
 class Vector2
 {
@@ -56,6 +59,9 @@ public:
     //virtual bool CanRock(){return false;}
 
     bool can_rock = false;
+    virtual std::vector<Vector2> RockMouvement(Piece* plateau[8][8]) = 0;
+
+    bool IsThreatened(Vector2 pos, Piece* plateau[8][8]);
 
 
 

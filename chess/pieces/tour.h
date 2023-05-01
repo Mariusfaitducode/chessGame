@@ -13,6 +13,11 @@ public:
     Tour(int l, int c, Color color);
     ~Tour();
     std::vector<Vector2> Mouvement(Piece* plateau[8][8]) override;
+
+    std::vector<Vector2> RockMouvement(Piece* plateau[8][8]) override{
+        std::vector<Vector2> coups;
+        return coups;
+    };
 };
 
 

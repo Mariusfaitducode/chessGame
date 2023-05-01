@@ -259,6 +259,13 @@ void Game::FirstClickedPiece(QGraphicsScene *scene, Piece* piece){
 
     //récupère les coups valides
     std::vector<Vector2> coups = VerifyCoups(piece->Mouvement(plateau));
+
+    if (selectedPiece->GetType() == TypePiece::roi){
+        std::vector<Vector2> rock_coups = piece->RockMouvement(plateau);
+        for (auto c : rock_coups){
+            coups.push_back(c);
+        }
+    }
     //std::vector<Vector2> coups = piece->Mouvement(plateau);
 
 
@@ -343,6 +350,10 @@ void Game::PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase){
         plateau[c][l] = selectedPiece;
 
         SetPiece(scene, plateau[c][l]);
+
+        if (selectedPiece->GetType() == TypePiece::tour){
+            selectedPiece->can_rock = false;
+        }
     }
     else{
 

@@ -95,3 +95,38 @@ bool Piece::IsOnBoard(Vector2 v){
     return false;
 }
 
+//Fonctions qui dit si la case pos est menacé par les pièces de l'adversaire
+bool Piece::IsThreatened(Vector2 pos, Piece* plateau[8][8]){
+
+    for (int l = 0; l < BOARD_SIZE; l++){
+        for (int c = 0; c < BOARD_SIZE; c++){
+
+            if (plateau[c][l] != NULL){
+
+                if (plateau[c][l]->GetColor() != this->GetColor()){
+
+                    std::vector<Vector2> coups = plateau[c][l]->Mouvement(plateau);
+
+                    //On regarde si le roi se trouve parmis les coups donc en échec
+                    for (auto coup : coups){
+                        if (pos.c == coup.c && pos.l == coup.l){
+                            coups.clear();
+                            return true;
+                        }
+                    }
+                    coups.clear();
+                }
+            }
+        }
+    }
+    return false;
+}
+
+std::vector<Vector2> Piece::RockMouvement(Piece* plateau[8][8]){
+
+    std::vector<Vector2> coups;
+
+    //Si le rock est autorisé et que le roi n'est pas échec
+
+    return coups;
+}

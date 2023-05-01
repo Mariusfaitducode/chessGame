@@ -4,6 +4,7 @@
 Tour::Tour(int l, int c, Color color) : Piece(Vector2(c, l), color)
 {
     _type = TypePiece::tour;
+    can_rock = true;
 
     if (color == Color::blanc){
         _image = QPixmap(":/images/w_rook.png");

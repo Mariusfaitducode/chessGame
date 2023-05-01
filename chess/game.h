@@ -13,7 +13,7 @@
 
 
 const int SQUARE_SIZE = 99;
-const int BOARD_SIZE = 8;
+//const int BOARD_SIZE = 8;
 
 
 
