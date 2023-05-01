@@ -48,6 +48,8 @@ public:
 
     void ShowPieces();
 
+    void AddPiece(Piece* piece){_pieces.push_back(piece);}
+
 
 
 private:

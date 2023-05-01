@@ -297,8 +297,10 @@ void Game::FirstClickedPiece(QGraphicsScene *scene, Piece* piece){
 
 void Game::PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase){
 
+    //Si l'utilisateur a cliqué une case vide
     if (clickedCase == NULL){
 
+        //Dans le cas où un rock est joué
         if (selectedPiece->GetType() == TypePiece::roi && selectedPiece->can_rock && ( c == 2 || c == 6 )){
 
             int c_rook = 0;
@@ -336,6 +338,7 @@ void Game::PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase){
             selectedPiece->can_rock = false;
 
         }
+        //Si le roi est joué normalement -> plus de rock
         else if (selectedPiece->GetType() == TypePiece::roi){
             selectedPiece->can_rock = false;
         }
@@ -351,10 +354,9 @@ void Game::PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase){
 
         SetPiece(scene, plateau[c][l]);
 
-        if (selectedPiece->GetType() == TypePiece::tour){
-            selectedPiece->can_rock = false;
-        }
+
     }
+    //Si l'utilisateur mange une pièce
     else{
 
         //On enlève la pièce de sa case initiale
@@ -372,6 +374,35 @@ void Game::PlayPiece(QGraphicsScene *scene, int c, int l, Piece* clickedCase){
 
         SetPiece(scene, plateau[c][l]);
 
+    }
+    if (selectedPiece->GetType() == TypePiece::tour){
+        selectedPiece->can_rock = false;
+    }
+    //Si le pion est promu
+    else if (selectedPiece->GetType() == TypePiece::pion && (l == 0 || l == 7)){
+
+        if (l == 0){
+            Piece* dame = new Dame(l, c, Color::noir);
+
+            RemovePiece(scene, selectedPiece);
+            selectedPiece = NULL;
+
+            plateau[c][l] = dame;
+            SetPiece(scene, plateau[c][l]);
+
+            noir.AddPiece(dame);
+        }
+        else if (l == 7){
+            Piece* dame = new Dame(l, c, Color::blanc);
+
+            RemovePiece(scene, selectedPiece);
+            selectedPiece = NULL;
+
+            plateau[c][l] = dame;
+            SetPiece(scene, plateau[c][l]);
+
+            blanc.AddPiece(dame);
+        }
     }
     IncrementTour();
     std::cout << "Piece played " << std::endl;
