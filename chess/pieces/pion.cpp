@@ -17,7 +17,7 @@ Pion::~Pion(){
 }
 
 std::vector<Vector2> Pion:: Mouvement(Piece* plateau[8][8]){
-    std::cout << "Mouvement pion" << std::endl;
+    //std::cout << "Mouvement pion" << std::endl;
 
     std::vector<Vector2> coups;
 

@@ -17,7 +17,7 @@ Roi::~Roi(){
 }
 
 std::vector<Vector2> Roi::Mouvement(Piece* plateau[8][8]){
-    std::cout << "Mouvement roi" << std::endl;
+    //std::cout << "Mouvement roi" << std::endl;
 
     std::vector<Vector2> coups;
 

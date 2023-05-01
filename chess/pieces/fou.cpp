@@ -18,7 +18,7 @@ Fou::~Fou(){
 }
 
 std::vector<Vector2> Fou:: Mouvement(Piece* plateau[8][8]){
-    std::cout << "Mouvement fou" << std::endl;
+    //std::cout << "Mouvement fou" << std::endl;
 
     std::vector<Vector2> coups;
 

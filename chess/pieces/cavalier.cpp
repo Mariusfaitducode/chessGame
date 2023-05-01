@@ -17,7 +17,7 @@ Cavalier::~Cavalier(){
 }
 
 std::vector<Vector2> Cavalier:: Mouvement(Piece* plateau[8][8]){
-    std::cout << "Mouvement cavalier" << std::endl;
+    //std::cout << "Mouvement cavalier" << std::endl;
 
     std::vector<Vector2> coups;
 

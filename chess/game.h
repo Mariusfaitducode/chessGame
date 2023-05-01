@@ -5,6 +5,12 @@
 
 #include <QGraphicsPixmapItem>
 
+#include <QDebug>
+
+#define RED     "\033[31m"
+#define CYAN    "\033[36m"
+#define WHITE   "\033[37m"
+
 
 const int SQUARE_SIZE = 99;
 const int BOARD_SIZE = 8;
@@ -65,6 +71,7 @@ public:
     void IncrementTour(){tour++;}
 
     void DisplayPlateau();
+    void DisplayCopyPlateau(Piece* copy_plateau[8][8]);
 
 private:
 

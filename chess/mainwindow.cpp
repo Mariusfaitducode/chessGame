@@ -64,6 +64,9 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
             //Si aucune pièce n'est sélectionné
             if (game->IsFirstClick()){
 
+                std::cout<<"Initial plateau"<<std::endl;
+                game->DisplayPlateau();
+
                 game->FirstClickedPiece(scene, clickedCase);
             }
             //Si une nouvelle pièce est sélectionné
@@ -88,7 +91,7 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
             game->RemoveCoups(scene);
         }
     }
-    game->DisplayPlateau();
+    //game->DisplayPlateau();
 }
 
 

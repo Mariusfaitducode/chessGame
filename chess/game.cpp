@@ -127,10 +127,12 @@ bool Game::IsInCheck(Piece* copy_plateau[8][8]){
 
     //std::vector<Player*> players = GetPlayersTour();
 
+
     std::vector<Color> color = GetColorsTour();
 
     Vector2 king;
 
+    //On récupère le roi de la personne qui joue
     for (int l = 0; l < BOARD_SIZE; l++){
         for (int c = 0; c < BOARD_SIZE; c++){
 
@@ -147,6 +149,7 @@ bool Game::IsInCheck(Piece* copy_plateau[8][8]){
         }
     }
 
+    //On regarde tous les coups de l'adversaire
     for (int l = 0; l < BOARD_SIZE; l++){
         for (int c = 0; c < BOARD_SIZE; c++){
 
@@ -154,7 +157,9 @@ bool Game::IsInCheck(Piece* copy_plateau[8][8]){
 
                 if (copy_plateau[c][l]->GetColor() == color[1]){
 
-                    std::vector<Vector2> coups = copy_plateau[c][l]->Mouvement(plateau);
+                    std::vector<Vector2> coups = copy_plateau[c][l]->Mouvement(copy_plateau);
+
+                    //On regarde si le roi se trouve parmis les coups donc en échec
                     for (auto coup : coups){
                         if (king.c == coup.c && king.l == coup.l){
                             coups.clear();
@@ -180,6 +185,7 @@ void Game::SimulatePiece(int c, int l, Piece* copy_plateau[8][8], int last_c, in
     copy_plateau[c][l] = selectedPiece;
 }
 
+//Fonction qui renvoie la liste des coups valides pour une pièce donnée
 
 std::vector<Vector2> Game::VerifyCoups(std::vector<Vector2> coups){
 
@@ -198,10 +204,15 @@ std::vector<Vector2> Game::VerifyCoups(std::vector<Vector2> coups){
     int last_c = selectedPiece->C();
     int last_l = selectedPiece->L();
 
+    qDebug() <<"selected piece :"<<last_c<<last_l;
+
+
     for (auto coup : coups){
 
         int c = coup.c;
         int l = coup.l;
+
+        qDebug() <<"coup :"<<c<<l;
 
         bool eat_piece = false;
         Piece* last_piece;
@@ -211,19 +222,27 @@ std::vector<Vector2> Game::VerifyCoups(std::vector<Vector2> coups){
             last_piece = copy_plateau[c][l];
             //copy_plateau[c][l] = NULL;
             eat_piece = true;
+            qDebug() << "eat piece";
         }
 
+        //Simule le coup
         SimulatePiece(c, l, copy_plateau, last_c, last_l);
 
+        DisplayCopyPlateau(copy_plateau);
+
         if(!IsInCheck(copy_plateau)){
-            std::cout << "validate_coup" << std::endl;
+            qDebug() << "validate_coup";
             valid_coups.push_back(coup);
         }
+        else{
+            qDebug() << "not_valid";
+        }
 
+        //Replace la pièce simulé à sa position de départ
         SimulatePiece(last_c, last_l, copy_plateau, c, l);
 
         if ( eat_piece){
-            copy_plateau[last_c][last_l] = last_piece;
+            copy_plateau[c][l] = last_piece;
         }
     }
 
@@ -237,9 +256,13 @@ std::vector<Vector2> Game::VerifyCoups(std::vector<Vector2> coups){
 void Game::FirstClickedPiece(QGraphicsScene *scene, Piece* piece){
 
     selectedPiece = piece;
+
+    //récupère les coups valides
     std::vector<Vector2> coups = VerifyCoups(piece->Mouvement(plateau));
     //std::vector<Vector2> coups = piece->Mouvement(plateau);
 
+
+    //affiche et sauvegarde les coups
     for (auto coup : coups){
         std::cout << coup.c << coup.l << std::endl;
 
@@ -395,6 +418,32 @@ void Game::DisplayPlateau(){
         }
         std::cout << std::endl;
         std::cout << " ---   ---   ---   ---   ---   ---   ---   --- "<< std::endl;
+    }
+}
+
+void Game::DisplayCopyPlateau(Piece* copy_plateau[8][8]){
+
+    std::cout << WHITE << " ---   ---   ---   ---   ---   ---   ---   --- "<< std::endl;
+    for (int l = 0; l < BOARD_SIZE; l++){
+        for (int c = 0; c < BOARD_SIZE; c++){
+
+            if ( copy_plateau[c][l] != NULL){
+
+                if (copy_plateau[c][l]->GetColor() == Color::blanc){
+                    std::cout << WHITE << "| " << CYAN << copy_plateau[c][l]->ShowSign() << WHITE << " | ";
+                }
+                else{
+                    std::cout << WHITE << "| " RED << copy_plateau[c][l]->ShowSign() << WHITE << " | ";
+                }
+
+            }
+            else{
+                std::cout << WHITE << "|   | ";
+            }
+
+        }
+        std::cout << std::endl;
+        std::cout << WHITE << " ---   ---   ---   ---   ---   ---   ---   --- "<< std::endl;
     }
 }
 

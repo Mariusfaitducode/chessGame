@@ -19,7 +19,7 @@ Tour::~Tour(){
 
 std::vector<Vector2> Tour:: Mouvement(Piece* plateau[8][8]){
 
-    std::cout << "Mouvement tour" << std::endl;
+    //std::cout << "Mouvement tour" << std::endl;
 
     std::vector<Vector2> coups;
 
@@ -30,7 +30,6 @@ std::vector<Vector2> Tour:: Mouvement(Piece* plateau[8][8]){
 
     for (int i = -1; i< 2; i += 2){
 
-        std::cout << "ok1" << std::endl;
         std::cout << IsOnBoard(Vector2(c + i, l)) << std::endl;
         std::cout << IsOnBoard(Vector2(c, l + i)) << std::endl;
 
@@ -38,8 +37,6 @@ std::vector<Vector2> Tour:: Mouvement(Piece* plateau[8][8]){
         if (IsOnBoard(Vector2(c + i, l))){
 
             if (plateau[c + i][l] == NULL){
-
-                std::cout << "ok" << std::endl;
 
                 coups.push_back(Vector2(c + i, l));
 
