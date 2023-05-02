@@ -194,7 +194,7 @@ bool Game::EchecEtMat(){
 
             if (plateau[c][l] != NULL){
 
-                if (plateau[c][l]->GetColor() == Color::blanc){
+                if (plateau[c][l]->GetColor() == color[0]){
 
                     std::vector<Vector2> coups = plateau[c][l]->Mouvement(plateau);
 
