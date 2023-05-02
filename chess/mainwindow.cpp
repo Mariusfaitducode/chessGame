@@ -5,6 +5,8 @@
 #include <QGraphicsSceneMouseEvent>
 
 
+
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -22,8 +24,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->graphicsView->setScene(scene);
 
+    model = new ChessMovesModel();
 
-    //Initialisation du jeu
+
+
+    ui->tableView->setModel(model);
+
+    //ui->tableView->setColumnWidth(0, ui->tableView->width() / 2 - 15);
+    //ui->tableView->setColumnWidth(1, ui->tableView->width() / 2);
+
+    QHeaderView* horizontalHeader = ui->tableView->horizontalHeader();
+    horizontalHeader->setSectionResizeMode(0, QHeaderView::Stretch);
+    horizontalHeader->setSectionResizeMode(1, QHeaderView::Stretch);
+
+
 
     game = new Game();
 
@@ -35,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Detection des cliques
 
     connect(scene, &ChessScene::mousePressed, this, &MainWindow::onSceneClicked);
+    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(on_recommencer_clickedMain()));
 
 }
 
@@ -54,6 +69,14 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
 
 
     bool played = false;
+
+    int last_c;
+    int last_l;
+
+    if (game->selectedPiece){
+        last_c = game->selectedPiece->C();
+        last_l = game->selectedPiece->L();
+    }
 
 
 
@@ -97,11 +120,24 @@ void MainWindow::onSceneClicked(QGraphicsSceneMouseEvent *event)
     }
 
     if ( played){
+
+        ChessMove move(last_c, last_l, c, l);
+
+        model->addMove(move, game->GetTour());
+        //ui->tableView->show();
+        ui->tableView->scrollToBottom();
+
+        //QModelIndex lastIndex = model->index(model->rowCount() - 1, model->columnCount() - 1);
+        //model->setData(lastIndex, "Nouvelle colonne");
+
+        //QModelIndex lastRow = model->index(model->rowCount() - 1, 0);
+
+
         if (game->GetColorTour() == Color::blanc){
-            ui->label_tour->setText("Tour : "+ QString::number(game->GetTour() + 1)+ ", Coups aux blancs");
+            ui->label_tour->setText("Aux blancs de jouer");
         }
         else{
-            ui->label_tour->setText("Tour : "+ QString::number(game->GetTour() + 1)+ ", Coups aux noirs");
+            ui->label_tour->setText("Aux noirs de jouer");
         }
 
         if (game->CheckInGame()){
@@ -138,6 +174,14 @@ void ChessScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 }
 
 
+void MainWindow::on_recommencer_clickedMain()
+{
+
+    this->close();
+    MainWindow *f=new MainWindow(this);
+    f->show();
+
+}
 
 
 

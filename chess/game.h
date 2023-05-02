@@ -80,6 +80,8 @@ public:
     void DisplayPlateau();
     void DisplayCopyPlateau(Piece* copy_plateau[8][8]);
 
+    Piece* selectedPiece;
+
 private:
 
     Player blanc;
@@ -93,7 +95,7 @@ private:
 
     int tour;
 
-    Piece* selectedPiece;
+
 
 };
 

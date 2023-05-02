@@ -8,6 +8,7 @@
 #include "QMouseEvent"
 #include "qgraphicssceneevent.h"
 
+#include "ChessMovesModel.h"
 
 
 //Scene de notre plateau + Gestion des clicks
@@ -47,6 +48,7 @@ public:
 
 public slots:
     void onSceneClicked(QGraphicsSceneMouseEvent *event);
+    void on_recommencer_clickedMain();
     //void mousePressEvent(QMouseEvent * e);
 
 signals:
@@ -57,6 +59,7 @@ private:
     ChessScene *scene;
 
     Game *game;
+    ChessMovesModel *model;
 };
 
 

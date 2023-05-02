@@ -39,8 +39,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>920</x>
-      <y>360</y>
+      <x>880</x>
+      <y>550</y>
       <width>121</width>
       <height>51</height>
      </rect>
@@ -185,44 +185,51 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="widget" native="true">
+   <widget class="QWidget" name="verticalWidget_2" native="true">
     <property name="geometry">
      <rect>
-      <x>890</x>
-      <y>30</y>
+      <x>880</x>
+      <y>40</y>
       <width>301</width>
-      <height>151</height>
+      <height>101</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background : rgb(255, 249, 242);</string>
+     <string notr="true">background : rgb(255, 234, 210);
+border: 1px solid black;</string>
     </property>
-    <widget class="QLabel" name="label_tour">
-     <property name="geometry">
-      <rect>
-       <x>8</x>
-       <y>15</y>
-       <width>281</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Tour : 0, coup aux blancs</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_check">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>70</y>
-       <width>271</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_tour">
+       <property name="styleSheet">
+        <string notr="true">border : none;</string>
+       </property>
+       <property name="text">
+        <string>Tour : 0, coup aux blancs</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_check">
+       <property name="styleSheet">
+        <string notr="true">border: none;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>180</y>
+      <width>301</width>
+      <height>351</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

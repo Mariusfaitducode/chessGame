@@ -25,6 +25,7 @@ SOURCES += \
         player.cpp
 
 HEADERS += \
+    ChessMovesModel.h \
     enum.h \
     game.h \
     mainwindow.h \
