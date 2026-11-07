@@ -1,9 +1,25 @@
 # chessGame
 
-Je me suis lancé dans ce projet pour m'entrainer à la programmation orientée objet en C++.
-Les règles du jeu sont celles du jeu d'échecs classique.
-Le jeu est jouable à deux joueurs sur le même ordinateur.
+A two-player chess game in C++ with a Qt graphical interface, played on the same computer.
 
-J'ai réalisé ce projet avec Qt Creator qui facilite la création d'interfaces graphiques. 
-En plus du plateau de jeu, il y'a une boite de dialogue qui indique à qui est le tour de jouer et si un joueur est en échec ou mat.
-Il y'a aussi une table qui recense tout les coups joués depuis le début de la partie.
+## What it does
+- Full board with the standard piece moves; clicking a piece highlights its legal moves.
+- Moves that would leave your own king in check are filtered out by simulating them on a copy of the board.
+- Castling (both sides) and pawn promotion (to a queen).
+- Check and checkmate detection, with a status panel showing whose turn it is.
+- A table listing every move played since the start of the game (for example `e2-e4`).
+- A restart button.
+
+## Tech stack
+C++17, Qt 5 (Widgets, QGraphicsScene, a QAbstractTableModel for the move list), built with qmake.
+
+## Run it locally
+Requires Qt 5 (developed with Qt 5.15.2 / MinGW 64-bit). Open `chess/chess.pro` in Qt Creator and run it, or from the command line:
+```
+cd chess
+qmake chess.pro
+make
+```
+
+## Context
+Personal project from March to May 2023, built to practice object-oriented programming in C++: each piece type is its own class deriving from a common `Piece` class.
